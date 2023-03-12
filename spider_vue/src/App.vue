@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Test from './components/Test.vue';
+import { ref } from 'vue';
+
+const count = ref(0);
+const name = ['a', 'b', 'c'];
+let str1 = ref('这是一个app页面');
+
+function getTestData(str:string) {
+  console.log(str);
+  str1.value = str;
+}
+
 </script>
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    这是一个测试页面
+    <p>{{ str1 }}</p>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <Test  :name="name" msg="fff" @testclick="getTestData"/>
 </template>
 
 <style scoped>
