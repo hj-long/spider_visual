@@ -1,37 +1,60 @@
-<script setup lang="ts">
-import Test from './components/Test.vue';
-import { ref } from 'vue';
-
-const count = ref(0);
-const name = ['a', 'b', 'c'];
-let str1 = ref('这是一个app页面');
-
-function getTestData(str:string) {
-  console.log(str);
-  str1.value = str;
-}
+<script lang="ts" setup>
+import Echarts_1 from './components/Echarts_1.vue'
 
 </script>
 
 <template>
-  <div>
-    这是一个测试页面
-    <p>{{ str1 }}</p>
+  <div class="common-layout">
+    <el-container>
+      <el-aside width="200px">
+        <ul>
+          <li>主页</li>
+          <li>地区分布</li>
+          <li>词云分析</li>
+          <li>智能推荐</li>
+          <li>设计图生成</li>
+        </ul>
+      </el-aside>
+
+      <el-container>
+
+        <el-header>
+          基于网络爬虫的减速器数据系统开发
+        </el-header>
+
+        <el-main>
+          <Echarts_1 />
+        </el-main>
+
+        <el-footer>Footer</el-footer>
+      </el-container>
+    </el-container>
   </div>
-  <Test  :name="name" msg="fff" @testclick="getTestData"/>
 </template>
 
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.el-container {
+  height: 100%;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.common-layout{
+  height: 100%;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.el-aside {
+  background-color: #8aaedd;
+  color: #202020;
+  text-align: center;
+}
+.el-header {
+  background-color: #556170;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+}
+.el-footer {
+  background-color: #556170;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
 }
 </style>
