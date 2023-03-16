@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import Echarts_1 from './components/Echarts_1.vue'
+import ChinaMap from './components/ChinaMap.vue'
 
 </script>
 
@@ -23,7 +24,13 @@ import Echarts_1 from './components/Echarts_1.vue'
         </el-header>
 
         <el-main>
-          <Echarts_1 />
+          <ChinaMap />
+          <!-- <div class="main_top">
+
+          </div>
+          <div class="main_center">
+            <Echarts_1 />
+          </div> -->
         </el-main>
 
         <el-footer>Footer</el-footer>
@@ -56,5 +63,14 @@ import Echarts_1 from './components/Echarts_1.vue'
   color: #fff;
   line-height: 60px;
   text-align: center;
+}
+.main_top {
+  height: 220px;
+  background-color: #8aaedd;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.main_center {
+  height: calc(100% - 240px);
 }
 </style>
