@@ -1,5 +1,5 @@
 <template>
-    <div ref="chinaMap" style="height: 700px;border: solid 1px red;width: 100%;"></div>
+    <div ref="chinaMap" style="height: 100%;width: 100%;"></div>
 </template>
 
 <script lang="ts" setup>
@@ -9,35 +9,39 @@ import chinaJSON from '../assets/json/china.json'
 
 const chinaMap = ref()
 
+
+var city_data = [
+            {name: "北京",value: 100},
+            {name: "天津",value: 600},
+            {name: "上海",value: 200},
+            {name: "重庆",value: 400},
+            {name: "河北",value: 300},
+            {name: "河南",value: 700},
+            {name: "云南",value: 500},
+            {name: "广东",value: 700},
+            {name: "江苏",value: 700},
+        ]
+
 onMounted(() => {
-  drawChina()
+  drawChina(city_data)
 })
 
-function drawChina() {
+function drawChina(city_data: any) {
     var myChart = echarts.init(chinaMap.value)
     echarts.registerMap('china', chinaJSON as any)
-    var city_data = [
-            {name: "北京市",value: 100},
-            {name: "天津市",value: 600},
-            {name: "上海市",value: 200},
-            {name: "重庆市",value: 400},
-            {name: "河北省",value: 300},
-            {name: "河南省",value: 700},
-            {name: "云南省",value: 500},
-            {name: "广东省",value: 1000},
-
-        ]
     var optionMap = {  
-                backgroundColor: '#FFFFFF',  
+                backgroundColor: '#FFFFFF30',  
                 title: {  
-                    text: '全国地图大数据',  
+                    text: '已爬取的厂家数量地区分布图',  
                     subtext: '',  
-                    x:'center'  
+                    x:'center',
+                    textStyle: {
+                        color: '#E2DEDE'
+                    }
                 },  
                 tooltip : {  
                     trigger: 'item'  
                 },  
-                
                 //左侧小导航图标
                 visualMap: {  
                     show : true,  
@@ -49,6 +53,9 @@ function drawChina() {
                         {start: 100, end: 200},{start: 0, end: 100},  
                     ],  
                     color: ['#F71212', '#25F136', '#0C1CF7','#51F3FF', '#ECA234', '#8DACF5'],
+                    textStyle: {
+                        color: '#E2DEDE'
+                    }
                 },  
                 geo: {
                     map: 'china',
@@ -88,7 +95,7 @@ function drawChina() {
             };  
         //使用制定的配置项和数据显示图表
         myChart.setOption(optionMap);
-    
 }
+
 
 </script>
