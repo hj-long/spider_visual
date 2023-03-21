@@ -6,24 +6,31 @@
 import { ref, onMounted } from "vue";
 import * as echarts from 'echarts'
 import chinaJSON from '../assets/json/china.json'
+import axios from 'axios'
 
+function init_city() {
+    return axios.get('http://127.0.0.1:8000/data/address/')
+    .then(res => {
+        return res.data
+    }).catch(err => {
+        console.log(err)
+    })
+}
 const chinaMap = ref()
 
-
-var city_data = [
-            {name: "北京",value: 100},
-            {name: "天津",value: 600},
-            {name: "上海",value: 200},
-            {name: "重庆",value: 400},
-            {name: "河北",value: 300},
-            {name: "河南",value: 700},
-            {name: "云南",value: 500},
-            {name: "广东",value: 700},
-            {name: "江苏",value: 700},
-        ]
-
-onMounted(() => {
-  drawChina(city_data)
+onMounted(async() => {
+    console.log('mounted开始')
+    let city_data = await init_city()
+    // 遍历所有城市整理数据格式为：[{name: '北京', value: 100}, {name: '上海', value: 200}]
+    let data = []
+    for(let city in city_data) {
+        data.push({
+            name: city,
+            value: city_data[city]
+        })
+    }
+    // 绘制地图
+    drawChina(data)
 })
 
 function drawChina(city_data: any) {
@@ -48,11 +55,11 @@ function drawChina(city_data: any) {
                     x: 'left',  
                     y: 'center',  
                     splitList: [   
-                        {start: 500, end: 700},{start: 400, end: 500},  
-                        {start: 300, end: 400},{start: 200, end: 300},  
-                        {start: 100, end: 200},{start: 0, end: 100},  
+                        {start: 550, end: 1100},{start: 350, end: 550},  
+                        {start: 250, end: 350},{start: 150, end: 250},  
+                        {start: 50, end: 150},{start: 0, end: 50},  
                     ],  
-                    color: ['#F71212', '#25F136', '#0C1CF7','#51F3FF', '#ECA234', '#8DACF5'],
+                    color: ['#FF0000', '#FF5125', '#FF9100','#FFE600', '#A5CA00', '#E1FC7E'],
                     textStyle: {
                         color: '#E2DEDE'
                     }

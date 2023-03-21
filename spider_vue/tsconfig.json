@@ -12,7 +12,10 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global"],
+    // "paths": {
+    //   "@/*": ["./src/*"]
+    // }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/assets/js/getTime.js"],
   "references": [{ "path": "./tsconfig.node.json" }]

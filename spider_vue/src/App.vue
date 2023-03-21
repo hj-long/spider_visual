@@ -9,12 +9,25 @@ import getTime from './components/getTime.vue';
     <el-container>
       <el-aside width="180px">
         <div style="height: 60px; line-height: 60px; text-align: center; font-size: 20px; font-weight: bold; color: #fff;">减速器数据系统</div>
-        <ul>
-          <li>主页</li>
-          <li>地区分布</li>
-          <li>词云分析</li>
-          <li>智能推荐</li>
-          <li>设计图生成</li>
+        <ul class="enum">
+          <li>
+            <router-link to="/">主页</router-link>         
+          </li>
+          <li>
+            <router-link to="/china_map">地区分布</router-link>         
+          </li>
+          <li>
+            <router-link to="/">数据分析</router-link>         
+          </li>
+          <li>
+            <router-link to="/">词云分析</router-link>         
+          </li>
+          <li>
+            <router-link to="/">智能推荐</router-link>         
+          </li>
+          <li>
+            <router-link to="/">数据。。</router-link>
+          </li>
         </ul>
       </el-aside>
 
@@ -28,13 +41,9 @@ import getTime from './components/getTime.vue';
         </el-header>
 
         <el-main>
-          <ChinaMap />
-          <!-- <div class="main_top">
-
-          </div>
-          <div class="main_center">
-            <Echarts_1 />
-          </div> -->
+            <!-- 路由出口 -->
+            <!-- 路由匹配到的组件将渲染在这里 -->
+            <router-view></router-view>
         </el-main>
 
         <el-footer>Footer</el-footer>
@@ -82,5 +91,18 @@ import getTime from './components/getTime.vue';
 .main_center {
   height: calc(100% - 240px);
 }
-
+.enum li {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.enum li a {
+  color: #FFFFFF;
+}
+.enum li a:hover {
+  color: #FFD700;
+}
 </style>
