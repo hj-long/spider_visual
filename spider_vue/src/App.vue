@@ -2,6 +2,8 @@
 import ChinaMap from './components/ChinaMap.vue';
 import getTime from './components/getTime.vue';
 
+
+
 </script>
 
 <template>
@@ -57,6 +59,7 @@ import getTime from './components/getTime.vue';
 .el-container {
   height: 100%;
   background: url(./assets/image/bg.jpg) top center no-repeat;
+  /* background: #103E7A; */
 }
 .common-layout{
   height: 100%;
@@ -64,7 +67,7 @@ import getTime from './components/getTime.vue';
 .el-aside {
   color: #fff;
   text-align: center;
-  background-color: rgb(27, 67, 128);
+  background-color:  #103E7A;;
 }
 .el-header {
   height: 60px;
