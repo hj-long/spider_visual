@@ -5,7 +5,7 @@
             <div class="show_echarts">
                 <el-row :gutter="20">
                     <el-col :span="11">
-                        <p style="text-align: center;">数据库中共有3200条数据</p>         
+                        <p style="text-align: center;">数据库中共有{{ data_length }}条数据</p>         
                         <Echarts_1 :option="option1"/>
                     </el-col>
                     <el-col :span="2"></el-col>
@@ -23,11 +23,8 @@
             </el-steps> -->
             <div class="search">
                 <Search />
-                <div>
-                    <span>第二步：点击按钮</span>
-                </div>
-                <div class="">
-                    <el-button type="primary" @click="next">智能搜索</el-button>
+                <div class="textCenter">
+                    <el-button type="primary" @click="next" size="large">自动生成</el-button>
                 </div>
             </div>                  
         </div>
@@ -41,6 +38,7 @@ import Search from "./Search.vue";
 import Echarts_1 from "../Echarts_1.vue";
 
 const active = ref(0)
+const data_length = ref(0)
 
 function next() {
     active.value += 1;
@@ -49,26 +47,24 @@ function next() {
     }
 }
 
-const option1 = {
+onMounted(async () => {
+    let data = await axios.get('http://127.0.0.1:8000/data/count/').then(res => {
+        console.log(res.data.data)
+        data_length.value = res.data.length
+        return res.data
+    }).catch(err => {
+        console.log(err)
+    })
+     option1.value.series[0].data = data.data
+})
+
+const option1 = ref({
         series: [
           {
             type: 'pie',
-            data: [
-              {
-                value: 335,
-                name: '直接访问'
-              },
-              {
-                value: 234,
-                name: '联盟广告'
-              },
-              {
-                value: 1548,
-                name: '搜索引擎'
-              }
-            ]
+            data: []
           }
-      ]};
+      ]});
 
 const option2 = {
     xAxis: {

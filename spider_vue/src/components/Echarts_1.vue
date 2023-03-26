@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from "vue";
+import { ref, onMounted, defineProps, toRefs, watch } from "vue";
 import * as echarts from 'echarts'
 
 const echart_1 = ref()
@@ -12,18 +12,22 @@ onMounted(() => {
   draw()
 })
 
-const porps = defineProps({
-  option: {
-    type: Object,
-    default: () => {}
-  }
-})
+const porps = defineProps<{
+    option: any
+}>()
 
-const option = porps.option
+const { option } = toRefs(porps)
+
+watch(
+  () => option.value,
+  ()=>{ draw() },
+  {deep: true}
+)
+
 
 function draw() {
   var myChart = echarts.init(echart_1.value)
-  myChart.setOption(option)
+  myChart.setOption(option.value)
 }
 
 </script>

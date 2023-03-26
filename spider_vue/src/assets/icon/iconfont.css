@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1679819671245') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+  content: "\e626";
+}
+
+.icon-shujuxitong:before {
+  content: "\e63a";
+}
+
+.icon-Map-:before {
+  content: "\ec72";
+}
+
+.icon-rementuijian:before {
+  content: "\e73d";
+}
+

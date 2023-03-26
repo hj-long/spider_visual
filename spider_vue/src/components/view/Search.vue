@@ -1,5 +1,5 @@
 <template>
-    <div>第一步：输入技术参数</div>
+    <div class="textCenter">第一步：输入技术参数</div>
     <div class="select_val">
         <span class="span1">选择一个合适的参数范围：</span>
         <el-select v-model="selected" :placeholder='options[0].label'>
@@ -57,10 +57,12 @@ const input2 = ref('')
     margin: 10px auto;
     height: 32px;
     line-height: 32px;
-    border-bottom: 1px solid #dcdfe6;
     padding: 0 10px;
     display: flex;
+    justify-content: center;
+    align-items: center;
 } 
+
 .el-select {
     width: 150px;
 }
