@@ -1,15 +1,25 @@
 <script lang="ts" setup>
-import ChinaMap from './components/ChinaMap.vue';
 import getTime from './components/getTime.vue';
-import { ref } from 'vue'
+import { ref, onMounted, provide } from 'vue'
+import axios from 'axios'
 
-const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+const data_length = ref(0)
+const type_length = ref(0)
+const option1 = ref(null);
+
+onMounted(async () => {
+    let data = await axios.get('http://127.0.0.1:8000/data/count/').then(res => {
+        data_length.value = res.data.length
+        type_length.value = res.data.data.length
+        return res.data
+    }).catch(err => {
+        console.log(err)
+    })
+    option1.value = data.data
+})
+
+provide("option1", option1)
+provide("type_length", type_length)
 
 </script>
 
@@ -48,6 +58,7 @@ const handleClose = (key: string, keyPath: string[]) => {
 
         <el-header>
           <div style="position: relative;">
+            <div class="left_header">数据库目前已录入商品信息：{{ data_length }} 条</div>
             基于网络爬虫的减速器数据系统开发
           <getTime />
           </div>
@@ -132,5 +143,14 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 .iconfont {
   font-size: 20px;
+}
+
+.left_header {
+  position: absolute;
+  left: 0;
+  top: -5px;
+  padding-right: 20px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
 }
 </style>
