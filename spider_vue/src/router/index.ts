@@ -16,6 +16,11 @@ const routes = [
         name: "echarts_1",
         component: () => import("../components/Echarts_1.vue"),
     },
+    {
+        path: "/auto_make",
+        name: "auto_make",
+        component: () => import("../components/AutoMake.vue"),
+    },
 ];
 
 const router = createRouter({

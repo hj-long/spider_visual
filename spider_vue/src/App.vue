@@ -36,6 +36,10 @@ provide("type_length", type_length)
             <router-link to="/">系统首页</router-link>         
           </li>
           <li>
+            <span class="iconfont icon-rementuijian"></span>
+            <router-link to="/auto_make">智能推荐</router-link>         
+          </li>
+          <li>
             <span class="iconfont icon-Map-"></span>
             <router-link to="/china_map">地区分布</router-link>         
           </li>
@@ -46,10 +50,6 @@ provide("type_length", type_length)
           <li>
             <span class="iconfont icon-Map-"></span>
             <router-link to="/">词云分析</router-link>         
-          </li>
-          <li>
-            <span class="iconfont icon-rementuijian"></span>
-            <router-link to="/">智能推荐</router-link>         
           </li>
         </ul>
       </el-aside>
@@ -133,7 +133,7 @@ provide("type_length", type_length)
 }
 .enum li a {
   color: #FFFFFF;
-  margin-left: 10px;
+  margin-left: 7px;
 }
 .enum li a:hover {
   color: #FFD700;
