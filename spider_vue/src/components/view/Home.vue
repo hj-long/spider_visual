@@ -53,12 +53,17 @@ onMounted(() => {
 
 
 const option1 = ref({
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b} : {c} ({d}%)'
+        },
         series: [
           {
             type: 'pie',
             data: inject("option1")
           }
-      ]});
+      ]
+    });
 
 const option2 = {
     xAxis: {

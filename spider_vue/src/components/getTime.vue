@@ -15,8 +15,9 @@ function getTime() {
   let day = date.getDate();
   let hour = date.getHours();
   let minute = date.getMinutes();
+  if(minute < 10) minute = ('0' + minute) as any;
   let second = date.getSeconds();
-  if(second < 10) second = Number('0' + second);
+  if(second < 10) second = ('0' + second) as any;
   time.value = `${year}年${month}月${day}日 ${hour}:${minute}:${second}`;
   timer = setTimeout(getTime, 1000);
 }
