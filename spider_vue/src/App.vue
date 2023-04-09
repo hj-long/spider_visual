@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import getTime from './components/getTime.vue';
 import { ref, onMounted, provide } from 'vue'
-import axios from 'axios'
+import axios from './api'
 
 const data_length = ref(0)
 const type_length = ref(0)
 const option1 = ref(null);
 
 onMounted(async () => {
-    let data = await axios.get('http://127.0.0.1:8000/data/count/').then(res => {
+    let data = await axios.get('/api/count/').then(res => {
         data_length.value = res.data.length
         type_length.value = res.data.data.length
         return res.data

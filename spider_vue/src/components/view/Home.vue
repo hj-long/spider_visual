@@ -15,12 +15,6 @@
                     </el-col>
                 </el-row>
             </div>
-            <!-- 进度条 -->
-            <!-- <el-steps :active="active" finish-status="success" align-center simple>
-                <el-step title="输入技术参数" />
-                <el-step title="自动计算" />
-                <el-step title="返回结果" />
-            </el-steps> -->
             <div class="search">
                 <Search />
                 <div class="textCenter">
@@ -33,7 +27,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, inject } from "vue";
-import axios from "axios";
+import axios from "../../api";
 import Search from "./Search.vue";
 import Echarts_1 from "../Echarts_1.vue";
 

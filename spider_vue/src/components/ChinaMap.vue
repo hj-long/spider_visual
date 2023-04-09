@@ -6,10 +6,10 @@
 import { ref, onMounted } from "vue";
 import * as echarts from 'echarts'
 import chinaJSON from '../assets/json/china.json'
-import axios from 'axios'
+import axios from '../api'
 
 function init_city() {
-    return axios.get('http://127.0.0.1:8000/data/address/')
+    return axios.get('/api/address/')
     .then(res => {
         return res.data
     }).catch(err => {
