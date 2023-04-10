@@ -47,3 +47,11 @@ body {
 .textCenter {
   text-align: center;
 }
+
+.el-card__header {
+  padding: 10px 0 !important;
+  text-align: center;
+}
+.el-card__body {
+  padding: 0 0 5px 8px !important;
+}

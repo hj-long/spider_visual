@@ -16,10 +16,10 @@
                 </el-row>
             </div>
             <div class="search">
-                <Search />
+                <!-- <Search />
                 <div class="textCenter">
                     <el-button type="primary" @click="next" size="large">自动生成</el-button>
-                </div>
+                </div> -->
             </div>                  
         </div>
     </div>
@@ -59,18 +59,31 @@ const option1 = ref({
       ]
     });
 
-const option2 = {
-    xAxis: {
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    },
-    yAxis: {},
-    series: [
-        {
-            type: 'bar',
-            data: [23, 24, 18, 25, 27, 28, 25]
-        }
-    ]
-}
+const option2 = ref({
+        xAxis: {
+                data: ['行星减速机1', '摆线针轮减速机', '蜗轮蜗杆减速机', '其他类型']
+        },
+        yAxis: {},
+        series: [
+            {
+                type: 'bar',
+                data: [2512, 53, 53, 526]
+            }
+        ]
+    })
+
+// const option2 = {
+//     xAxis: {
+//             data: ['行星减速机', '摆线针轮减速机', '蜗轮蜗杆减速机', '其他类型']
+//     },
+//     yAxis: {},
+//     series: [
+//         {
+//             type: 'bar',
+//             data: [2512, 53, 53, 526]
+//         }
+//     ]
+// }
 
 </script>
 
