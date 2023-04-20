@@ -49,7 +49,7 @@ provide("type_length", type_length)
           </li>
           <li>
             <span class="iconfont icon-Map-"></span>
-            <router-link to="/">词云分析</router-link>         
+            <router-link to="/word_cloud">词云分析</router-link>         
           </li>
         </ul>
       </el-aside>

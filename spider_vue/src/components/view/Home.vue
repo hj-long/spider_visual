@@ -1,21 +1,24 @@
 <template>
-    <div class="home">
+    <div class="app_box">
         <div class="show_data">
             <!-- 图表展示 -->
             <div class="show_echarts">
                 <el-row :gutter="20">
-                    <el-col :span="11">
+                    <el-col :span="10">
                         <p style="text-align: center;">数据库中收集了{{ type_length }}种类型的减速器</p>         
                         <Echarts_1 :option="option1"/>
                     </el-col>
-                    <el-col :span="2"></el-col>
-                    <el-col :span="11">
+                    <el-col :span="4">  
+                    </el-col>
+                    <el-col :span="10">
                         <p style="text-align: center;">数据库中共收集了3种类型的减速器</p>   
                         <Echarts_1 :option="option2"/>
                     </el-col>
                 </el-row>
             </div>
             <div class="search">
+                <p style="text-align: center;">JZQ系列减速器不同类型数量分布</p>
+                <TypeBar />
                 <!-- <Search />
                 <div class="textCenter">
                     <el-button type="primary" @click="next" size="large">自动生成</el-button>
@@ -30,6 +33,7 @@ import { ref, onMounted, inject } from "vue";
 import axios from "../../api";
 import Search from "./Search.vue";
 import Echarts_1 from "../Echarts_1.vue";
+import TypeBar from "../TypeBar.vue";
 
 const active = ref(0)
 const type_length = ref(0)
@@ -88,12 +92,6 @@ const option2 = ref({
 </script>
 
 <style scoped>
-.home {
-    width: 100%;
-    height: 100%;
-    background-color: #F5F5F5;
-    border-radius: 10px;
-}
 .search {
     margin: 10px auto;
 }

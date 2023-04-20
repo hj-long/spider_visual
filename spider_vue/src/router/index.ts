@@ -21,6 +21,11 @@ const routes = [
         name: "auto_make",
         component: () => import("../components/AutoMake.vue"),
     },
+    {
+        path: "/word_cloud",
+        name: "word_cloud",
+        component: () => import("../components/WordCloud.vue"),
+    },
 ];
 
 const router = createRouter({
