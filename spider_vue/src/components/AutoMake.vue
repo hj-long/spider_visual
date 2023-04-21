@@ -1,77 +1,32 @@
 <template>
     <div class="main">
-        <!-- 进度条 -->
-        <!-- <div class="box">
-            <el-steps :active="active" finish-status="success" align-center>
-                <el-step title="输入技术参数" />
-                <el-step title="自动计算" />
-                <el-step title="返回结果" />
-            </el-steps>
-        </div> -->
         <div class="box">
-            <p class="text_center">请输入减速器参数:</p>
-            <div class="radio_box">
-                <el-radio-group v-model="radio" @change="radio_event">
-                    <el-radio-button label="额定功率" />
-                    <el-radio-button label="输出转速" />
-                    <el-radio-button label="输出转矩" />
-                    <el-radio-button label="许用扭矩" />
-                </el-radio-group>
-                <div class="input_box">
-                    <el-input type="text" v-model="value1" class="select_input" :placeholder="tip"/>
-                    <span class="unit">{{ unit }}</span>
-                    <!-- <div style="margin: 10px 0;">
-                        <el-button @click="enSure">确定</el-button>
-                        <el-button @click="beEnsure">取消</el-button>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-        <div class="box">
-            <p class="text_center">选择电动机类型:
-                <el-select v-model="value2" :placeholder="options[0].label">
+            <p class="text_center">请选择减速器参数方案:
+                <el-select v-model="value1" :placeholder="options[0].label">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
                     />
-                </el-select>
+        </el-select>
             </p>
-            <div class="table_box">
-                <table>
-                    <!-- 表头 -->
-                    <thead>
-                        <tr>
-                            <th>电机类型</th>
-                            <th>额定功率(kw)</th>
-                            <th>额定电压(V)</th>
-                            <th>额定电流(A)</th>
-                            <th>额定转速(rpm)</th>
-                            <th>额定转矩(Nm)</th>
-                            <th>许用扭矩(Nm)</th>
-                            <th>许用转速(rpm)</th>
-                            <th>许用电流(A)</th>
-                            <th>许用电压(V)</th>
-                        </tr>
-                    </thead>
-                    <!-- 表体 -->
-                    <tbody>
-                        <tr>
-                            <td>Y180L-6异步电动机</td>
-                            <td>15</td>
-                            <td>380</td>
-                            <td>1000</td>
-                            <td>1500</td>
-                            <td>0.5</td>
-                            <td>0.5</td>
-                            <td>1500</td>
-                            <td>1000</td>
-                            <td>380</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="radio_box">
+                <el-radio-group v-model="radio
+                " @change="radio_event">
+                    <el-radio-button label="额定功率" />
+                    <el-radio-button label="输出转速" />
+                    <el-radio-button label="输出转矩" />
+                    <el-radio-button label="许用扭矩" />
+                </el-radio-group>
+                <div class="input_box">
+                    <el-input type="text" v-model="value2" class="select_input" :placeholder="tip"/>
+                    <span class="unit">{{ unit }}</span>
+                </div>
             </div>
+        </div>
+        <div class="box">
+            <MotorBox />
         </div>
         <div class="box">
             <p class="text_center">
@@ -107,6 +62,7 @@
 import { ElMessageBox } from "element-plus";
 import { ref, onMounted } from "vue"; 
 import axios from "../api";
+import MotorBox from "./view/MotorBox.vue"; 
 
 const radio = ref('额定功率')
 const value1 = ref('')
@@ -116,9 +72,13 @@ const tip = ref('请输入额定功率')
 const show = ref(false)
 const len = ref(0)
 const count = ref()
+const options = ref([
+    {label: '一级圆柱齿轮减速机', value: '1'},
+    {label: '二级圆柱齿轮减速机', value: '2'},
+    {label: '三级圆柱齿轮减速机', value: '3'},
+])
 
 function radio_event() {
-    console.log(radio.value)
     switch (radio.value) {
         case '额定功率':
             unit.value = '(kw)'
@@ -141,35 +101,14 @@ function radio_event() {
     }
 }
 
-const active = ref(0)
-function enSure() {
-    console.log(value1.value)
-    active.value++
-    if(active.value > 3) {
-        active.value = 0
-    }
-}
-
-function beEnsure() {
-    console.log('取消')
-    active.value = 0
-}
-
-const options = ref([
-    {
-        value: '1',
-        label: 'Y180L-6异步电动机'
-    },
-])
-
 function autoMake() {
-    if(value1.value == '') {
+    if(value2.value == '') {
         ElMessageBox.alert('请先输入减速器的参数')
         return
     }
     axios.get('/api/get_data', {
         params: {
-            power: value1.value,
+            power: value2.value,
         }
     }).then(res => {
         console.log(res.data)
@@ -178,7 +117,6 @@ function autoMake() {
         show.value = true
     })
 }
-
 
 </script>
 
@@ -218,20 +156,8 @@ function autoMake() {
 .unit {
     margin-left: 10px;
 }
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #DFDEDE;
-}
-th, td {
-    border: 1px solid #DFDEDE;
-    padding: 5px;
-    text-align: center;
-}
-.table_box {
-    padding: 15px;
-}
-/* 下面我们会解释这些 class 是做什么的 */
+
+/* 动画 */
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;

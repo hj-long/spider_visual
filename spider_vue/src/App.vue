@@ -58,7 +58,7 @@ provide("type_length", type_length)
 
         <el-header>
           <div style="position: relative;">
-            <div class="left_header">数据库目前已录入商品信息：{{ data_length }} 条</div>
+            <div class="left_header">当前数据库已录入商品信息：{{ data_length }} 条</div>
             基于网络爬虫的减速器数据系统开发
           <getTime />
           </div>

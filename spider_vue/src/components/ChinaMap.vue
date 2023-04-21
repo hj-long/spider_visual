@@ -39,7 +39,7 @@ function drawChina(city_data: any) {
     var optionMap = {  
                 backgroundColor: '#FFFFFF30',  
                 title: {  
-                    text: '已爬取的厂家数量地区分布图',  
+                    text: '减速器厂家地区数量分布图',  
                     subtext: '',  
                     x:'center',
                     textStyle: {

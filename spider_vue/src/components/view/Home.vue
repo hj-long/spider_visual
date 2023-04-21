@@ -76,19 +76,6 @@ const option2 = ref({
         ]
     })
 
-// const option2 = {
-//     xAxis: {
-//             data: ['行星减速机', '摆线针轮减速机', '蜗轮蜗杆减速机', '其他类型']
-//     },
-//     yAxis: {},
-//     series: [
-//         {
-//             type: 'bar',
-//             data: [2512, 53, 53, 526]
-//         }
-//     ]
-// }
-
 </script>
 
 <style scoped>
