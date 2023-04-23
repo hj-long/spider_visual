@@ -9,7 +9,7 @@
                     :label="item.label"
                     :value="item.value"
                     />
-        </el-select>
+                </el-select>
             </p>
             <div class="radio_box">
                 <el-radio-group v-model="radio

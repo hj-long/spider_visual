@@ -37,15 +37,15 @@ provide("type_length", type_length)
           </li>
           <li>
             <span class="iconfont icon-rementuijian"></span>
-            <router-link to="/auto_make">智能推荐</router-link>         
+            <router-link to="/auto_make">智能设计</router-link>         
+          </li>
+          <li>
+            <span class="iconfont icon-Map-"></span>
+            <router-link to="/data_make">数据分析</router-link>         
           </li>
           <li>
             <span class="iconfont icon-Map-"></span>
             <router-link to="/china_map">地区分布</router-link>         
-          </li>
-          <li>
-            <span class="iconfont icon-Map-"></span>
-            <router-link to="/">数据分析</router-link>         
           </li>
           <li>
             <span class="iconfont icon-Map-"></span>

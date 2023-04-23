@@ -1,108 +1,155 @@
 <template>
     <div class="app_box">
-        <div class="show_data">
-            <!-- 图表展示 -->
-            <div class="show_echarts">
-                <el-row :gutter="20">
-                    <el-col :span="10">
-                        <p style="text-align: center;">数据库中收集了{{ type_length }}种类型的减速器</p>         
-                        <Echarts_1 :option="option1"/>
-                    </el-col>
-                    <el-col :span="4">  
-                    </el-col>
-                    <el-col :span="10">
-                        <p style="text-align: center;">数据库中共收集了3种类型的减速器</p>   
-                        <Echarts_1 :option="option2"/>
-                    </el-col>
-                </el-row>
+        <div class="box">
+            <div class="select_key">
+                <el-dropdown @command="handleCommand">
+                    <span class="el-dropdown-link">
+                        {{ value1 }}
+                    <el-icon class="el-icon--right">
+                        <arrow-down />
+                    </el-icon>
+                    </span>
+                    <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item command="factory">制造商</el-dropdown-item>
+                        <el-dropdown-item command="type">型号</el-dropdown-item>
+                        <el-dropdown-item command="use_scope">用途</el-dropdown-item>
+                        <el-dropdown-item command="address">地区</el-dropdown-item>
+                        <el-dropdown-item command="name">名称</el-dropdown-item>
+                    </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
             </div>
-            <div class="search">
-                <p style="text-align: center;">JZQ系列减速器不同类型数量分布</p>
-                <TypeBar />
-                <!-- <Search />
-                <div class="textCenter">
-                    <el-button type="primary" @click="next" size="large">自动生成</el-button>
-                </div> -->
-            </div>                  
+            <div class="search_box">
+                <input type="text" class='search' placeholder="搜索减速器商品数据" v-model="value2">
+            </div>
+            <div class="search_btn" @click="search(1)">
+                <el-icon color="#337ecc"><Search /></el-icon>
+            </div>
+        </div>
+        <div class="table_box">
+            <Table  :tableData="tableData" :page_change="pageChange"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, inject } from "vue";
+import { ref } from "vue";
+import { ArrowDown, Search } from '@element-plus/icons-vue'
 import axios from "../../api";
-import Search from "./Search.vue";
-import Echarts_1 from "../Echarts_1.vue";
-import TypeBar from "../TypeBar.vue";
+import Table from "../Table.vue";
 
-const active = ref(0)
-const type_length = ref(0)
+const value1 = ref('名称')
+const value2 = ref('')
 
-function next() {
-    active.value += 1;
-    if(active.value > 3) {
-        active.value = 0
-    }
+const params_map = {
+    factory: '制造商',
+    type: '型号',
+    use_scope: '用途',
+    address: '地区',
+    name: '名称'
 }
 
-onMounted(() => {
-    type_length.value = inject("type_length") as number
+const tableData = ref({
+    data: [],
+    total: 0,
+    current_page: 1,
+    total_count: 0,
+    total_page: 0
 })
 
-
-const option1 = ref({
-        tooltip: {
-            trigger: 'item',
-            formatter: '{b} : {c} ({d}%)'
-        },
-        series: [
-          {
-            type: 'pie',
-            data: inject("option1")
-          }
-      ]
-    });
-
-const option2 = ref({
-        xAxis: {
-                data: ['行星减速机1', '摆线针轮减速机', '蜗轮蜗杆减速机', '其他类型']
-        },
-        yAxis: {},
-        series: [
-            {
-                type: 'bar',
-                data: [2512, 53, 53, 526]
-            }
-        ]
+const search = (page: number) => {
+    if (!value2.value) {
+        return alert('请输入搜索内容')
+    }
+    axios.get('/api/search', {
+        params: {
+            name: value2.value,
+            page: page,
+            page_size: 10
+        }
+    }).then(res => {
+        console.log(res.data)
+        tableData.value = res.data
     })
+}
+
+const handleCommand = (command: string) => {
+    value1.value = params_map[command as keyof typeof params_map]
+}
+
+const pageChange = (page: number) => {
+    console.log('父组件执行了',page)
+    search(page)
+}
 
 </script>
 
 <style scoped>
-.search {
-    margin: 10px auto;
+.box {
+    border-radius: 10px;
+    border: 1px solid #DFDEDE;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 50px;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(28, 102, 230, 0.20);
+}
+.table_box {
+    margin: 20px;
+}
+.select_key {
+    height: 50px;
+    width: 120px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #fff;
+    border-right: 1px solid #DFDEDE;
 }
 
-.show_data {
-    box-sizing: content-box;
-    height: 600px;
-    margin: auto;
-    padding: 15px;
+.example-showcase .el-dropdown-link {
+  cursor: pointer;
+  color: var(--el-color-primary);
+  display: flex;
+  align-items: center;
+  outline: none;
 }
-.form_row input {
-    height: 27px;
-    border: 1px solid #dcdfe6;
-    width: 160px;
-    margin-right: 3px;
+.el-dropdown-link {
+    outline: none;
+}
+.search_box {
+    height: 50px;
+    width: 550px;
+    box-sizing: border-box;
+}
+.search {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border: none;
     font-size: 14px;
-    padding: 0 8px;
-    border-radius: 4px;
-    color: #333131;
 }
-.show_echarts {
-    margin: 10px auto;
-    border: 1px solid #dcdfe6;
-    border-radius: 5px;
-    padding: 10px;
+.search_btn {
+    height: 50px;
+    width: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    background-color: #fff;
+    border-left: 1px solid #DFDEDE;
+    cursor: pointer;
 }
+.search_btn:hover {
+    background-color: #ABC3DD;
+}
+
 </style>
