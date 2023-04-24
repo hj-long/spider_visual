@@ -11,7 +11,7 @@
           <el-table-column prop="address" label="地区" />
           <el-table-column prop="link" label="查看详情" width="150">
             <template #default="{ row }">
-              <el-button type="text" @click="handleClick(row.link)">点击查看详情</el-button>
+              <el-button type="primary" @click="handleClick(row.link)">点击查看详情</el-button>
             </template>
           </el-table-column>
       </el-table>
@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-import { number } from 'echarts';
 import { ref, defineProps, watch, defineEmits } from 'vue';
 
 const tableData1 = ref([])
@@ -39,10 +38,10 @@ const currentPage = ref(1)
 const props = defineProps({
     tableData: {
         data: Array,
-        total: number,
-        current_page: number,
-        total_count: number,
-        total_page: number
+        total: Number,
+        current_page: Number,
+        total_count: Number,
+        total_page: Number
     } as any
 })
 

@@ -20,7 +20,7 @@
                     <el-radio-button label="许用扭矩" />
                 </el-radio-group>
                 <div class="input_box">
-                    <el-input type="text" v-model="value2" class="select_input" :placeholder="tip"/>
+                    <el-input v-model="value2" class="select_input" :placeholder="tip"/>
                     <span class="unit">{{ unit }}</span>
                 </div>
             </div>

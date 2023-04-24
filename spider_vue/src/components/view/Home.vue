@@ -21,14 +21,14 @@
                 </el-dropdown>
             </div>
             <div class="search_box">
-                <input type="text" class='search' placeholder="搜索减速器商品数据" v-model="value2">
+                <input  class='search' placeholder="搜索减速器商品数据" v-model="value2">
             </div>
             <div class="search_btn" @click="search(1)">
                 <el-icon color="#337ecc"><Search /></el-icon>
             </div>
         </div>
         <div class="table_box">
-            <Table  :tableData="tableData" :page_change="pageChange"/>
+            <Table  :tableData="tableData" @page_change="pageChange"/>
         </div>
     </div>
 </template>
@@ -62,15 +62,35 @@ const search = (page: number) => {
     if (!value2.value) {
         return alert('请输入搜索内容')
     }
+    // 使用类型断言，告诉 TypeScript，'params' 对象的第三个属性的键名和值的类型可以变化
+    let parpams = {
+        'page': page,
+        'page_size': 10
+    } as {[key: string]: any}
+
+    let keyname = value1.value
+    if(keyname == '名称'){
+        parpams['name'] = value2.value
+    } else if(keyname == '制造商'){
+        parpams['factory'] = value2.value
+    } else if(keyname == '型号'){
+        parpams['type'] = value2.value
+    } else if(keyname == '用途'){
+        parpams['use_scope'] = value2.value
+    } else if(keyname == '地区'){
+        parpams['address'] = value2.value
+    }
+
     axios.get('/api/search', {
-        params: {
-            name: value2.value,
-            page: page,
-            page_size: 10
-        }
+        params: parpams
     }).then(res => {
         console.log(res.data)
         tableData.value = res.data
+        // 如果返回的数据为空，就提示用户
+        if (res.data.data.length == 0) {
+            value2.value = ''
+            alert('没有搜索到相关数据')
+        }
     })
 }
 

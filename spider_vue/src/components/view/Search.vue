@@ -11,9 +11,9 @@
             </el-option>
         </el-select>
         <span class="span2">:</span>
-        <el-input type="text" v-model="input1" class="select_input" />
+        <el-input v-model="input1" class="select_input" />
         <span class="span2"> -- </span>
-        <el-input type="text" v-model="input2" class="select_input" />
+        <el-input v-model="input2" class="select_input" />
     </div>
 </template>
 
