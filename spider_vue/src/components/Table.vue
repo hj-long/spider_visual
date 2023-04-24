@@ -1,6 +1,6 @@
 <template>
     <div class="table1">
-        <el-table :data="tableData1" style="width: 100%">
+        <el-table :data="tableData1" style="width: 100%" empty-text="暂无数据...请点击上方输入框输入内容进行搜索...">
           <el-table-column prop="title" label="名称"/>
           <el-table-column prop="type" label="型号" width="100" />
           <el-table-column prop="price" label="价格" width="100" />

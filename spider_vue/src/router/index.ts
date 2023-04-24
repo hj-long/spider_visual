@@ -31,6 +31,11 @@ const routes = [
         name: "data_make",
         component: () => import("../components/DataMake.vue"),
     },
+    {
+        path: "/auto_test",
+        name: "auto_test",
+        component: () => import("../components/AutoTest.vue"),
+    },
 ];
 
 const router = createRouter({

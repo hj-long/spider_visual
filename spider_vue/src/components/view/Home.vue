@@ -21,7 +21,7 @@
                 </el-dropdown>
             </div>
             <div class="search_box">
-                <input  class='search' placeholder="搜索减速器商品数据" v-model="value2">
+                <input class='search' placeholder="搜索减速器商品数据" v-model="value2">
             </div>
             <div class="search_btn" @click="search(1)">
                 <el-icon color="#337ecc"><Search /></el-icon>

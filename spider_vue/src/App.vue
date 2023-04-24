@@ -36,11 +36,11 @@ provide("type_length", type_length)
             <router-link to="/">系统首页</router-link>         
           </li>
           <li>
-            <span class="iconfont icon-rementuijian"></span>
+            <span class="iconfont icon-shejiyukaifa-"></span>
             <router-link to="/auto_make">智能设计</router-link>         
           </li>
           <li>
-            <span class="iconfont icon-Map-"></span>
+            <span class="iconfont icon-tongjifenxi"></span>
             <router-link to="/data_make">数据分析</router-link>         
           </li>
           <li>
@@ -48,8 +48,12 @@ provide("type_length", type_length)
             <router-link to="/china_map">地区分布</router-link>         
           </li>
           <li>
-            <span class="iconfont icon-Map-"></span>
+            <span class="iconfont icon-ciyun"></span>
             <router-link to="/word_cloud">词云分析</router-link>         
+          </li>
+          <li>
+            <span class="iconfont icon-ciyun"></span>
+            <router-link to="/auto_test">测试开发</router-link>         
           </li>
         </ul>
       </el-aside>
