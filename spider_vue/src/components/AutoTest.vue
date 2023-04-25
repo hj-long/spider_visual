@@ -18,12 +18,15 @@
                 </div>
             </div>
             <div class="text_center">
-                <el-button type="primary" plain @click="toSearch">搜索</el-button>
+                <el-button type="primary" plain @click="toSearch()">搜索</el-button>
                 <el-button type="success" plain @click="interSearch">智能推荐</el-button>
             </div>
         </div>
+        <div class="box threeData" >
+            <ThreeData  :threeData="threeData"/>
+        </div>
         <div class="box">
-            <Table1  :tableData="tableData" @page_change="pageChange"/>
+            <Table1  :tableData="tableData" />
         </div>
     </div>
 </template>
@@ -32,6 +35,7 @@
 import { ref, onMounted } from "vue"; 
 import axios from "../api";
 import Table1 from "./Table1.vue";
+import ThreeData from "./ThreeData.vue";
 
 interface TypeData {
     label: string,
@@ -40,9 +44,27 @@ interface TypeData {
 interface InputData {
     [key: string]: number
 }
+// 服务器响应数据的格式
+interface ResponseData {
+    data: any[],
+    power: any[],
+    input_rev: any[],
+    output_rev: any[],
+    num: any[],
+}
+
+// 图表的三个数据
+interface ThreeData {
+    power: any[],
+    input_rev: any[],
+    output_rev: any[],
+    num: any[],
+}
 
 const value1 = ref('')
 const tableData = ref([])
+const threeData = ref( {} as ThreeData)
+const flag = ref(false)
 
 const options = ref([
     {label: '一级圆柱齿轮减速机', value: '1'},
@@ -60,7 +82,10 @@ const typeData = [
 
 const inputData = ref({} as InputData)
 
-const toSearch = () => {
+const toSearch = (msg:string='') => {
+    if(flag.value) {
+        flag.value = false
+    }
     // 先打印一下输入了哪些数据
     console.log(inputData.value)
     // 如果一个参数都没有输入，就不发请求
@@ -82,21 +107,28 @@ const toSearch = () => {
     axios.get('/api/recommend', {
         params: {
             ...inputData.value,
-            series: value1.value
+            series: value1.value,
+            flag: msg
         }
     }).then(res => {
-        console.log(res)
-        tableData.value = res.data
+        console.log('jiba',res)
+        const data = res.data as ResponseData
+        tableData.value = data.data as any
+        // 如果有三个数据，就把三个数据放进去
+        if (data.power.length >= 3) {
+            threeData.value['power'] = data.power as any
+            threeData.value['input_rev'] = data.input_rev as any
+            threeData.value['output_rev'] = data.output_rev as any
+            threeData.value['num'] = data.num as any
+        }
     })
 }
 
 const interSearch = function() {
-    console.log(value1.value)
+    flag.value = true
+    toSearch('1')
 }
 
-const pageChange = function(page: number) {
-    console.log(page)
-}
 
 </script>
 
@@ -138,4 +170,7 @@ const pageChange = function(page: number) {
     text-align: center;
 }
 
+.threeData {
+    height: 400px;
+}
 </style>
