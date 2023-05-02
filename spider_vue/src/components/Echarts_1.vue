@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, toRefs, watch } from "vue";
+import { ref, onMounted, toRefs, watch } from "vue";
 import * as echarts from 'echarts'
 
 const echart_1 = ref()

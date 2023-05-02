@@ -37,7 +37,7 @@ provide("type_length", type_length)
           </li>
           <li>
             <span class="iconfont icon-shejiyukaifa-"></span>
-            <router-link to="/auto_make">智能设计</router-link>         
+            <router-link to="/auto_test">智能设计</router-link>         
           </li>
           <li>
             <span class="iconfont icon-tongjifenxi"></span>
@@ -53,7 +53,7 @@ provide("type_length", type_length)
           </li>
           <li>
             <span class="iconfont icon-ciyun"></span>
-            <router-link to="/auto_test">测试开发</router-link>         
+            <router-link to="/auto_make">测试开发</router-link>         
           </li>
         </ul>
       </el-aside>

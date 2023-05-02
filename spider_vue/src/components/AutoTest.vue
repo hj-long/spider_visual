@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue"; 
+import { ref } from "vue"; 
 import axios from "../api";
 import Table1 from "./Table1.vue";
 import ThreeData from "./ThreeData.vue";

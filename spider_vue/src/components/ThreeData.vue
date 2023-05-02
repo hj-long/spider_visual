@@ -3,8 +3,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, defineProps, watch} from "vue";
+import { ref, onMounted, watch} from "vue";
 import * as echarts from 'echarts'
+
 
 // 接收父组件传递的参数
 const props = defineProps<{

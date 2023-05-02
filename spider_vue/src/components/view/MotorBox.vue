@@ -45,7 +45,7 @@
 
 <script lang="ts" setup>
 
-import { ref, onMounted, computed } from "vue";
+import { ref, computed } from "vue";
 
 
 const value2 = ref('')

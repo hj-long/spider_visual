@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, watch, defineEmits } from 'vue';
+import { ref, watch } from 'vue';
 
 const tableData1 = ref([])
 const currentPage = ref(1)
