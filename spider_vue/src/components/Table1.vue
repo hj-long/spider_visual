@@ -22,12 +22,28 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-const tableData1 = ref([])
+const tableData1 = ref([] as itemData[])
+
+interface Props {
+    tableData: itemData[],
+}
+
+interface itemData {
+    id: number,
+    power: string,
+    input_rev: string,
+    output_rev: string,
+    allow_torque: string,
+    series: number | string,
+    slow_ratio: string,
+    wheel_hard: string,
+    price: string | number,
+    sale_sum: string | number,
+    score: number | string,
+}
 
 // 接受父组件传递的数据
-const props = defineProps({
-    tableData: [] as any
-})
+const props = defineProps<Props>()
 
 // 监听父组件传递的数据
 watch(() => props.tableData, (newVal) => {

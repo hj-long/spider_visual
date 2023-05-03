@@ -2,7 +2,7 @@
     <div class="main">
         <div class="box">
             <div class="text_center">请选择减速器类型:
-                <el-select v-model="value1" :placeholder="options[0].label">
+                <el-select v-model="series" :placeholder="options[0].label">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"; 
+import { ref, watch } from "vue"; 
 import axios from "../api";
 import Table1 from "./Table1.vue";
 import ThreeData from "./ThreeData.vue";
@@ -46,11 +46,25 @@ interface InputData {
 }
 // 服务器响应数据的格式
 interface ResponseData {
-    data: any[],
+    data: itemData[],
     power: any[],
     input_rev: any[],
     output_rev: any[],
     num: any[],
+}
+
+interface itemData {
+    id: number,
+    power: string,
+    input_rev: string,
+    output_rev: string,
+    allow_torque: string,
+    series: number | string,
+    slow_ratio: string,
+    wheel_hard: string,
+    price: string | number,
+    sale_sum: string | number,
+    score: number | string,
 }
 
 // 图表的三个数据
@@ -61,8 +75,8 @@ interface ThreeData {
     num: any[],
 }
 
-const value1 = ref('')
-const tableData = ref([])
+const series = ref('2')
+const tableData = ref([] as itemData[])
 const threeData = ref( {} as ThreeData)
 const flag = ref(false)
 
@@ -87,7 +101,7 @@ const toSearch = (msg:string='') => {
         flag.value = false
     }
     // 先打印一下输入了哪些数据
-    console.log(inputData.value)
+    // console.log(inputData.value)
     // 如果一个参数都没有输入，就不发请求
     if (Object.keys(inputData.value).length === 0) {
         alert('请至少输入一个参数')
@@ -100,23 +114,24 @@ const toSearch = (msg:string='') => {
             return
         }
     }
-    if(value1.value === '') {
+    if(series.value === '') {
         alert('请选择减速器类型')
         return
     }
     axios.get('/api/recommend', {
         params: {
             ...inputData.value,
-            series: value1.value,
+            series: series.value,
             flag: msg
         }
     }).then(res => {
-        console.log('jiba',res)
-        const data = res.data as ResponseData
-        tableData.value = data.data as any
+        const data = res.data
+        tableData.value = data.data
+        console.log('响应数据', data)
         // 如果有三个数据，就把三个数据放进去
-        if (data.power.length >= 3) {
-            threeData.value['power'] = data.power as any
+        if (data.power.length > 3) {
+            console.log('装数据', res.data)
+            threeData.value['power'] = data.power as any        
             threeData.value['input_rev'] = data.input_rev as any
             threeData.value['output_rev'] = data.output_rev as any
             threeData.value['num'] = data.num as any
@@ -128,7 +143,7 @@ const interSearch = function() {
     flag.value = true
     toSearch('1')
 }
-
+   
 
 </script>
 
