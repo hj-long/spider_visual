@@ -71,7 +71,7 @@ const getOption = function(data: any) {
             }
         },
         legend: {
-            data: ['额定功率', '输入转速', '输出转速']
+            data: ['功率', '输入转速', '输出转速']
         },
         xAxis: [
             {
@@ -141,95 +141,6 @@ const getOption = function(data: any) {
     }
     return options
 }
-
-// const option = ref({
-//         tooltip: {
-//             trigger: 'axis',
-//             axisPointer: {
-//             type: 'cross',
-//             crossStyle: {
-//                 color: '#999'
-//             }
-//             }
-//         },
-//         toolbox: {
-//             feature: {
-//             dataView: { show: true, readOnly: false },
-//             magicType: { show: true, type: ['line', 'bar'] },
-//             restore: { show: true },
-//             // saveAsImage: { show: true }
-//             }
-//         },
-//         legend: {
-//             data: ['额定功率', '输入转速', '输出转速']
-//         },
-//         xAxis: [
-//             {
-//             type: 'category',
-//             data: echartData.value.num,
-//             axisPointer: {
-//                 type: 'shadow'
-//             }
-//             }
-//         ],
-//         yAxis: [
-//             // 左右两个y轴
-//             {
-//             type: 'value',
-//             name: '输入转速',
-//             min: 0,
-//             max: 1500,
-//             interval: 100,
-//             axisLabel: {
-//                 formatter: '{value} rpm'
-//             }
-//             },
-//             {
-//             type: 'value',
-//             name: '功率',
-//             min: 0,
-//             max: 20,
-//             interval: 2,
-//             axisLabel: {
-//                 formatter: '{value} kw'
-//             }
-//             }
-//         ],
-//         series: [
-//             {
-//             name: '输入转速',
-//             type: 'bar',
-//             tooltip: {
-//                 valueFormatter: function (value: any) {
-//                 return value + ' rpm';
-//                 }
-//             },
-//             data: echartData.value.input_rev
-//             },
-//             {
-//             name: '输出转速',
-//             type: 'bar',
-//             tooltip: {
-//                 valueFormatter: function (value: any) {
-//                 return value + ' rpm';
-//                 }
-//             },
-//             data: echartData.value.output_rev
-//             },
-//             {
-//             name: '功率',
-//             type: 'line',
-//             yAxisIndex: 1,
-//             tooltip: {
-//                 valueFormatter: function (value: any) {
-//                 return value + ' kw';
-//                 }
-//             },
-//             data: echartData.value.power
-//             }
-//         ]
-// })
-
 
 
 </script>

@@ -19,7 +19,17 @@
             <div class="search">
                 <p style="text-align: center;">JZQ系列减速器不同类型数量分布</p>
                 <TypeBar />
-            </div>                  
+            </div>
+            <!-- 额定功率与许用扭矩 -->
+            <div class="viewBox">
+                <p style="text-align: center;">额定功率与许用扭矩分析</p>
+                <PowerTorque />
+            </div>
+            <!-- 商品价格与销售额分析 -->
+            <div class="viewBox">
+                <p style="text-align: center;">商品价格与销售额分析</p>
+                <PriceSale />
+            </div>
         </div>
     </div>
 </template>
@@ -29,6 +39,8 @@ import { ref, onMounted, inject } from "vue";
 import axios from "../api";
 import Echarts_1 from "./Echarts_1.vue";
 import TypeBar from "./TypeBar.vue";
+import PowerTorque from "./DataView/PowerTorque.vue";
+import PriceSale from "./DataView/PriceSale.vue";
 
 const active = ref(0)
 const type_length = ref(0)
@@ -99,5 +111,9 @@ const option2 = ref({
     border: 1px solid #dcdfe6;
     border-radius: 5px;
     padding: 10px;
+}
+.viewBox {
+    height: 350px;
+    margin: 10px auto;
 }
 </style>
