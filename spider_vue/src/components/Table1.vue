@@ -10,8 +10,10 @@
           <el-table-column prop="output_rev" label="输出转速范围" width="120"/>
           <el-table-column prop="allow_torque" label="许用扭矩" width="180" />
           <el-table-column prop="series" label="级数" width="80" />
-          <el-table-column prop="slow_ratio" label="减速比" width="180" />
+          <el-table-column prop="slow_ratio" label="减速比" width="80" />
           <el-table-column prop="wheel_hard" label="齿面" />
+          <el-table-column prop="layout" label="布局" />
+          <el-table-column prop="installation" label="安装形式" />
           <el-table-column prop="price" label="价格" />
           <el-table-column prop="sale_sum" label="销量" />
           <el-table-column prop="score" label="得分" width="80" />

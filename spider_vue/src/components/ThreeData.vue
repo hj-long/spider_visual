@@ -19,13 +19,14 @@ const props = defineProps<{
 
 const echartsRef = ref()
 
+// 拿到父组件传递的参数
+const threeData = ref(props.threeData)
+
 onMounted(() => {
+    echartData.value = props.threeData
     let option = getOption(echartData.value)
     initEchart(echartsRef.value, option);
 })
-
-// 拿到父组件传递的参数
-const threeData = ref(props.threeData)
 
 // 初始配置数据
 const echartData = ref({

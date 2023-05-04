@@ -22,8 +22,22 @@
                 <el-button type="success" plain @click="interSearch">智能推荐</el-button>
             </div>
         </div>
-        <div class="box threeData" >
+        <div class="box threeData" v-if="threeData.power != undefined">
+            <p class="p_text">额定功率、输入转速和输出转速参数分析</p>
             <ThreeData  :threeData="threeData"/>
+        </div>
+        <div class="box viewBox"  v-if="threeData.power != undefined">
+            <el-row :gutter="20">
+                    <el-col :span="9">
+                        <p class="p_text">齿面硬度、安装形式统计</p>
+                        <TypeInstall  :countType="countType"/>
+                    </el-col>
+                    <el-col :span="2"></el-col>
+                    <el-col :span="13">
+                        <p class="p_text">减速比、许用扭矩统计</p>
+                        <SlowTorque  :slow_torque="slow_torque"/>
+                    </el-col>
+            </el-row>
         </div>
         <div class="box">
             <Table1  :tableData="tableData" />
@@ -36,6 +50,8 @@ import { ref, watch } from "vue";
 import axios from "../api";
 import Table1 from "./Table1.vue";
 import ThreeData from "./ThreeData.vue";
+import TypeInstall from "./DataView/TypeInstall.vue";
+import SlowTorque from "./DataView/SlowTorque.vue";
 
 interface TypeData {
     label: string,
@@ -62,6 +78,8 @@ interface itemData {
     series: number | string,
     slow_ratio: string,
     wheel_hard: string,
+    layout: string,
+    installation: string,
     price: string | number,
     sale_sum: string | number,
     score: number | string,
@@ -79,6 +97,8 @@ const series = ref('2')
 const tableData = ref([] as itemData[])
 const threeData = ref( {} as ThreeData)
 const flag = ref(false)
+const countType = ref([] as any)
+const slow_torque = ref({} as any)
 
 const options = ref([
     {label: '一级圆柱齿轮减速机', value: '1'},
@@ -125,9 +145,12 @@ const toSearch = (msg:string='') => {
             flag: msg
         }
     }).then(res => {
-        const data = res.data
+        const data = res.data as ResponseData
         tableData.value = data.data
         console.log('响应数据', data)
+        countType.value = getTypeInstall(data.data)
+        slow_torque.value = getSlowTorque(data.data)
+        console.log('减速比、许用扭矩', slow_torque.value)
         // 如果有三个数据，就把三个数据放进去
         if (data.power.length > 3) {
             console.log('装数据', res.data)
@@ -143,7 +166,63 @@ const interSearch = function() {
     flag.value = true
     toSearch('1')
 }
-   
+
+const getTypeInstall = function(data: itemData[]) {
+    let type = new Map();
+    data.forEach(element => {
+        if(element.wheel_hard) { // 如果有这个属性
+            if(type.has(element.wheel_hard)) {
+                type.set(element.wheel_hard, type.get(element.wheel_hard) + 1)
+            } else {
+                type.set(element.wheel_hard, 1)
+            }
+        } 
+        if(element.layout) {
+            if(type.has(element.layout)) {
+                type.set(element.layout, type.get(element.layout) + 1)
+            } else {
+                type.set(element.layout, 1)
+            }
+        }
+        if(element.installation) {
+            if(type.has(element.installation)) {
+                type.set(element.installation, type.get(element.installation) + 1)
+            } else {
+                type.set(element.installation, 1)
+            }
+        }
+    });
+    let res = [...type.entries()]
+    return res
+}
+
+const getSlowTorque = function(data: itemData[]) {
+    let slow_data = [] as any[];
+    let torque_data = [] as any[];
+    data.forEach(element => {
+        if(element.slow_ratio) { // 如果有这个属性
+            slow_data.push(element.slow_ratio);
+        } else { // 如果没有这个属性, slow_ratio默认设置为 49.94
+            slow_data.push('49.94');
+        }
+        if(element.allow_torque) {
+            // 如果数据中存在 ~、-,就取第一个或者默认 500
+            if(element.allow_torque.indexOf('~') !== -1) {
+                element.allow_torque = element.allow_torque.split('~')[0]
+            } else if(element.allow_torque.indexOf('-') !== -1) {
+                element.allow_torque = element.allow_torque.split('-')[0]
+            };
+            torque_data.push(element.allow_torque);
+        } else { // 如果没有，allow_torque 默认设置为 500
+            torque_data.push('500');
+        }
+    });
+    let res = {
+        slow_data,
+        torque_data
+    }
+    return res
+}
 
 </script>
 
@@ -183,9 +262,13 @@ const interSearch = function() {
 }
 .p_text {
     text-align: center;
+    margin: 10px 0;
 }
-
 .threeData {
     height: 400px;
+}
+.viewBox {
+    height: 350px;
+    margin: 10px auto;
 }
 </style>
