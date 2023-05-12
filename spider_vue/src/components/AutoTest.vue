@@ -39,7 +39,66 @@
                     </el-col>
             </el-row>
         </div>
-        <div class="box">
+        <div class="box dataBox" v-if="threeData.power != undefined">
+            <p class="p_text">减速器设计方案推荐参数</p>
+            <div class="BoxTable">
+            <el-row :gutter="20">
+                <el-col :span="4">
+                    <div>额定功率</div>
+                    <div>3.3 kw</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>输入转速</div>
+                    <div>960 r/min</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>输出转速</div>
+                    <div>50 r/min</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>许用扭矩</div>
+                    <div>500 Nm</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>减速比</div>
+                    <div> 50 </div>
+                </el-col>
+                <el-col :span="4">
+                    <div>级数</div>
+                    <div>2 级</div>
+                </el-col>
+            </el-row>
+            </div>
+            <div class="BoxTable" style="border-bottom: 1px solid #DFDEDE;">
+            <el-row :gutter="20">
+                <el-col :span="4">
+                    <div>齿面类型</div>
+                    <div>软齿面</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>布局</div>
+                    <div>展开式</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>安转形式</div>
+                    <div>卧式</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>使用范围</div>
+                    <div>运输机、冶金</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>齿轮类型</div>
+                    <div>圆柱齿轮减速机</div>
+                </el-col>
+                <el-col :span="4">
+                    <div>价格</div>
+                    <div>¥1136</div>
+                </el-col>
+            </el-row>
+            </div>
+        </div>
+        <div class="box" style="margin: 10px auto;">
             <Table1  :tableData="tableData" />
         </div>
     </div>
@@ -270,5 +329,17 @@ const getSlowTorque = function(data: itemData[]) {
 .viewBox {
     height: 350px;
     margin: 10px auto;
+}
+.dataBox {
+    height: 150px;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+}
+.BoxTable {
+    border-top: 1px solid #DFDEDE;
+    border-left: 1px solid #DFDEDE;
+    border-right: 1px solid #DFDEDE;
+    border-radius: 5px;
 }
 </style>
